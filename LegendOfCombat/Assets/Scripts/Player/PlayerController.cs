@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance;
 
     [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float rollSpeed = 4;
 
     private PlayerControls playerControls;
     private Vector2 movement;
@@ -16,6 +17,12 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     private bool facingLeft = false;
+    private bool isRolling = false;
+
+    private void Start()
+    {
+        playerControls.Combat.Roll.performed += _ => Roll();
+    }
 
     private void Awake()
     {
@@ -70,5 +77,26 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.flipX = false;
             FacingLeft = false;
         }
+    }
+
+    private void Roll()
+    {
+        if (!isRolling)
+        {
+            isRolling = true;
+            animator.SetTrigger("roll");
+            moveSpeed *= rollSpeed;
+            StartCoroutine(EndRollRoutine());
+        }
+    }
+
+    private IEnumerator EndRollRoutine()
+    {
+        float rollTime = .2f;
+        float rollCD = .25f;
+        yield return new WaitForSeconds(rollTime);
+        moveSpeed /= rollSpeed;
+        yield return new WaitForSeconds(rollCD);
+        isRolling = false;
     }
 }
