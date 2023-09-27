@@ -4,24 +4,28 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool FacingLeft { get { return facingLeft; } set { facingLeft = value; } }
+    public bool FacingLeft { get { return facingLeft; } }
     public static PlayerController Instance;
 
     [SerializeField] private float moveSpeed = 1f;
-    [SerializeField] private float rollSpeed = 4;
+    [SerializeField] private float dashSpeed = 4f;
+    [SerializeField] private TrailRenderer trailRenderer;
 
     private PlayerControls playerControls;
     private Vector2 movement;
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private float startingMoveSpeed;
 
     private bool facingLeft = false;
-    private bool isRolling = false;
+    private bool isDashing = false;
 
     private void Start()
     {
-        playerControls.Combat.Roll.performed += _ => Roll();
+        playerControls.Combat.Dash.performed += _ => Dash();
+
+        startingMoveSpeed = moveSpeed;
     }
 
     private void Awake()
@@ -70,33 +74,34 @@ public class PlayerController : MonoBehaviour
         if (mousePos.x < playerScreenPoint.x)
         {
             spriteRenderer.flipX = true;
-            FacingLeft = true;
+            facingLeft = true;
         }
         else
         {
             spriteRenderer.flipX = false;
-            FacingLeft = false;
+            facingLeft = false;
         }
     }
 
-    private void Roll()
+    private void Dash()
     {
-        if (!isRolling)
+        if (!isDashing)
         {
-            isRolling = true;
-            animator.SetTrigger("roll");
-            moveSpeed *= rollSpeed;
-            StartCoroutine(EndRollRoutine());
+            isDashing = true;
+            moveSpeed *= dashSpeed;
+            trailRenderer.emitting = true;
+            StartCoroutine(EndDashRoutine());
         }
     }
 
-    private IEnumerator EndRollRoutine()
+    private IEnumerator EndDashRoutine()
     {
-        float rollTime = .2f;
-        float rollCD = .25f;
-        yield return new WaitForSeconds(rollTime);
-        moveSpeed /= rollSpeed;
-        yield return new WaitForSeconds(rollCD);
-        isRolling = false;
+        float dashTime = .2f;
+        float dashCD = .10f;
+        yield return new WaitForSeconds(dashTime);
+        moveSpeed = startingMoveSpeed;
+        yield return new WaitForSeconds(dashCD);
+        isDashing = false;
+        trailRenderer.emitting = false;
     }
 }
