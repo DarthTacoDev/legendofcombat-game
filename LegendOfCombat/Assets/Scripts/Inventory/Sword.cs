@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sword : MonoBehaviour
+public class Sword : MonoBehaviour, IWeapon
 {
     [SerializeField] private GameObject slashAnimPrefab;
     [SerializeField] private Transform slashAnimSpawnPoint;
@@ -52,7 +52,7 @@ public class Sword : MonoBehaviour
         attackingButtonDown = false;
     }
 
-    private void Attack()
+    public void Attack()
     {
         if (attackingButtonDown && !isAttacking)
         {
