@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private float roamChangeDirFloat = 2f;
-    [SerializeField] private float attackRange = 5f;
+    [SerializeField] private float attackRange = 0f;
     [SerializeField] private MonoBehaviour enemyType;
     [SerializeField] private float attackCD = 2f;
     [SerializeField] private bool stopMovingWhileAttacking = false;
@@ -19,16 +19,10 @@ public class EnemyAI : MonoBehaviour
     }
 
     private Vector2 roamPosition;
-    private float timeRoaming = 0f;    
+    private float timeRoaming = 0f;
+    
     private State state;
     private EnemyPathfinding enemyPathFinding;
-
-    private void Awake()
-    {
-        enemyPathFinding = GetComponent<EnemyPathfinding>();
-        state = State.Roaming;
-    }
-
     private void Start()
     {
         roamPosition = GetRoamingPosition();
@@ -39,6 +33,12 @@ public class EnemyAI : MonoBehaviour
         MovementStateControl();
     }
 
+    private void Awake()
+    {
+        enemyPathFinding = GetComponent<EnemyPathfinding>();
+        state = State.Roaming;
+    }
+
     private void MovementStateControl()
     {
         switch (state)
@@ -46,18 +46,17 @@ public class EnemyAI : MonoBehaviour
             default:
             case State.Roaming:
                 Roaming();
-            break;
+                break;
 
             case State.Attacking:
                 Attacking();
-            break;
+                break;
         }
     }
 
     private void Roaming()
     {
         timeRoaming += Time.deltaTime;
-
 
         enemyPathFinding.MoveTo(roamPosition);
 
@@ -66,11 +65,12 @@ public class EnemyAI : MonoBehaviour
             state = State.Attacking;
         }
 
-        if (timeRoaming < roamChangeDirFloat)
+        if (timeRoaming > roamChangeDirFloat)
         {
             roamPosition = GetRoamingPosition();
         }
     }
+
 
     private void Attacking()
     {
@@ -81,13 +81,15 @@ public class EnemyAI : MonoBehaviour
 
         if (attackRange != 0 && canAttack)
         {
+
             canAttack = false;
             (enemyType as IEnemy).Attack();
 
             if (stopMovingWhileAttacking)
             {
                 enemyPathFinding.StopMoving();
-            } else
+            }
+            else
             {
                 enemyPathFinding.MoveTo(roamPosition);
             }
