@@ -7,6 +7,8 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private int startingHealth = 3;
     [SerializeField] private GameObject deathVFXPrefab;
     [SerializeField] private float knockBackThrust = 15f;
+    [SerializeField] private AudioSource enemyHurt;
+    [SerializeField] private AudioSource enemyDeath;
 
     private int currentHealth;
     private Knockback knockback;
@@ -16,6 +18,8 @@ public class EnemyHealth : MonoBehaviour
     {
         knockback = GetComponent<Knockback>();
         flash = GetComponent<Flash>();
+        enemyHurt = GetComponent<AudioSource>();
+        enemyDeath = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -27,6 +31,7 @@ public class EnemyHealth : MonoBehaviour
     {
         currentHealth -= damage;
         knockback.GetKnockedBack(PlayerController.Instance.transform, knockBackThrust);
+        enemyHurt.Play();
         StartCoroutine(flash.FlashRoutine());
         StartCoroutine(CheckDetectDeathRoutine());
     }
@@ -42,7 +47,9 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
+            GetComponent<PickUpSpawner>().DropItems();
             Destroy(gameObject);
+            enemyDeath.Play();
         }
     }
 }

@@ -6,6 +6,12 @@ using UnityEngine;
 public class DamageSource : MonoBehaviour
 {
     private int damageAmount;
+    private EnemyPathfinding enemyPathfinding;
+
+    private void Awake()
+    {
+        enemyPathfinding = new EnemyPathfinding();
+    }
 
     private void Start()
     {
@@ -15,7 +21,16 @@ public class DamageSource : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
-        enemyHealth?.TakeDamage(damageAmount);
+        if (collision.gameObject.CompareTag("Spell"))
+        {
+            EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
+            enemyPathfinding.moveDir = Vector2.zero;
+            enemyHealth?.TakeDamage(damageAmount);
+        }
+        else
+        {
+            EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
+            enemyHealth?.TakeDamage(damageAmount);
+        }
     }
 }

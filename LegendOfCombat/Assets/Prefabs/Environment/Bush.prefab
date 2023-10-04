@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3102803938087889733}
   - component: {fileID: 7737519960382813645}
   - component: {fileID: 8265931299676439031}
+  - component: {fileID: -3934799258102501609}
   m_Layer: 0
   m_Name: Bush
   m_TagString: Untagged
@@ -134,3 +135,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.0050793886}
   serializedVersion: 2
   m_Radius: 0.44412768
+--- !u!114 &-3934799258102501609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336946268094533103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6daad3a2ee196df4586ecec0dfae9144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldCoin: {fileID: 2538984459612074083, guid: 21f9692055efe7440944cf2ba803abfe, type: 3}
+  healthGlobe: {fileID: 2538984459612074083, guid: aa4b5802a5288134291ef568432ea745, type: 3}
+  staminaGlobe: {fileID: 2538984459612074083, guid: f4cbe9fe5d813a24a8cf0b53d0735f64, type: 3}
