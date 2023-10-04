@@ -60,7 +60,7 @@ public class LightingStrikeSpell : MonoBehaviour
         instanceLightning = Instantiate(lightningStrikePrefab, enemyPosition + offset, Quaternion.identity);
         Debug.Log("SPAWNED");
 
-        StartCoroutine(LStrikeRoutine(.4f));
+        StartCoroutine(LStrikeRoutine(3f));
     }
 
     private IEnumerator LStrikeRoutine(float waitTime)
