@@ -11,7 +11,7 @@ public class Stamina : Singleton<Stamina>
     [SerializeField] private int timeBetweenStaminaRefresh = 3;
 
     private Transform staminaContainer;
-    private int startingStamina = 3;
+    private int startingStamina = 5;
     private int maxStamina;
     const string STAMINA_CONTAINER_TEXT = "Stamina Container";
 
@@ -32,14 +32,22 @@ public class Stamina : Singleton<Stamina>
     {
         CurrentStamina--;
         UpdateStaminaImages();
+        StopAllCoroutines();
+        StartCoroutine(RefreshStaminaRoutine());
     }
 
     public void RefreshStamina()
     {
-        if (CurrentStamina < maxStamina)
+        if (CurrentStamina < maxStamina && PlayerHealth.Instance.IsDead)
         {
             CurrentStamina++;
         }
+        UpdateStaminaImages();
+    }
+
+    public void ReplenishStaminaOnDeath()
+    {
+        CurrentStamina = startingStamina;
         UpdateStaminaImages();
     }
 
@@ -56,20 +64,17 @@ public class Stamina : Singleton<Stamina>
     {
         for (int i = 0; i < maxStamina; i++)
         {
+            Transform child = staminaContainer.GetChild(i);
+            Image image = child?.GetComponent<Image>();
+
             if (i <= CurrentStamina - 1)
             {
-                staminaContainer.GetChild(i).GetComponent<Image>().sprite = fullStaminaImage;
+                image.sprite = fullStaminaImage;
             }
             else
             {
-                staminaContainer.GetChild(i).GetComponent<Image>().sprite = emptyStaminaImage;
+                image.sprite = emptyStaminaImage;
             }
-        }
-
-        if (CurrentStamina < maxStamina)
-        {
-            StopAllCoroutines();
-            StartCoroutine(RefreshStaminaRoutine());
         }
     }
 

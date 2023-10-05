@@ -9,7 +9,6 @@ public class Bow : MonoBehaviour, IWeapon
     [SerializeField] private Transform arrownSpawnPoint;
 
     private Animator animator;
-
     readonly int FIRE_HASH = Animator.StringToHash("Fire");
 
     private void Awake()

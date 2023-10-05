@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 5696664679587519972}
   - component: {fileID: 4834181233704674900}
   - component: {fileID: 1554869455824655843}
-  - component: {fileID: 1360555569266523964}
   m_Layer: 0
   m_Name: Lightning Strike
   m_TagString: Spell
@@ -34,7 +33,8 @@ Transform:
   m_LocalPosition: {x: -5.3045883, y: -2.8674693, z: -0.18980885}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1962501711080341229}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8088961155400245333
@@ -169,13 +169,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6daec8bf684db034d882e5267f3e3465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!82 &1360555569266523964
+--- !u!1 &8750520674903253450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1962501711080341229}
+  - component: {fileID: 3569911222307319088}
+  m_Layer: 0
+  m_Name: LightningAudio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1962501711080341229
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8750520674903253450}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5924429166608291382}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &3569911222307319088
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7721389196851867932}
+  m_GameObject: {fileID: 8750520674903253450}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}

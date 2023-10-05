@@ -43,7 +43,11 @@ public class LightingStrikeSpell : MonoBehaviour
                 if (LightningStrike == false)
                 {
                     Debug.Log("Lightning Strike initiated");
-                    LightningStrikeInstance(enemyPos);
+
+                    foreach (Transform t in collision.transform)
+                    {
+                        LightningStrikeInstance(enemyPos);
+                    }
                 }
             }
         }
@@ -60,7 +64,7 @@ public class LightingStrikeSpell : MonoBehaviour
         instanceLightning = Instantiate(lightningStrikePrefab, enemyPosition + offset, Quaternion.identity);
         Debug.Log("SPAWNED");
 
-        StartCoroutine(LStrikeRoutine(3f));
+        StartCoroutine(LStrikeRoutine(1.5f));
     }
 
     private IEnumerator LStrikeRoutine(float waitTime)

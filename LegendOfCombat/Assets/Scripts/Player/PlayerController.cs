@@ -27,6 +27,8 @@ public class PlayerController : Singleton<PlayerController>
         playerControls.Combat.Dash.performed += _ => Dash();
 
         startingMoveSpeed = moveSpeed;
+
+        ActiveInventory.Instance.EquipStartingWeapon();
     }
 
     protected override  void Awake()
@@ -43,6 +45,11 @@ public class PlayerController : Singleton<PlayerController>
     private void OnEnable()
     {
         playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();   
     }
 
     private void Update()
@@ -71,10 +78,9 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Move()
     {
-        if (!knockback.GettingKnockedBack)
-        {
-            rb.MovePosition(rb.position + movement.normalized * (moveSpeed * Time.fixedDeltaTime));
-        }
+        if (knockback.GettingKnockedBack || PlayerHealth.Instance.IsDead) { return; }
+
+        rb.MovePosition(rb.position + movement.normalized * (moveSpeed * Time.fixedDeltaTime));
     }
 
     private void AdjustPlayerFacingDirection()
@@ -96,9 +102,8 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Dash()
     {
-        if (!isDashing && Stamina.Instance.CurrentStamina > 0)
+        if (!isDashing)
         {
-            Stamina.Instance.UseStamina();
             isDashing = true;
             moveSpeed *= dashSpeed;
             trailRenderer.emitting = true;
