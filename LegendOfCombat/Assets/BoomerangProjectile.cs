@@ -16,15 +16,14 @@ public class BoomerangProjectile : MonoBehaviour
     private void Start()
     {
         startPosition = transform.position;
-        BoomerangStateRoutine();
     }
 
     private void Update()
     {
         MoveProjectile();
-        BoomerangStateRoutine();
         DetectSwitchState();
     }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
@@ -62,13 +61,12 @@ public class BoomerangProjectile : MonoBehaviour
             transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
         }
 
-        //if (state == 2)
-        //{
-        //    transform.position = startPosition;
-        //    Destroy(gameObject);
-        //}
-
         currentPosition = transform.position;
+
+        if (state == 2)
+        {
+            StartCoroutine(BoomerangStateRoutine());
+        }
     }
 
     public void UpdateProjectileRange(float projectileRange)
@@ -85,15 +83,10 @@ public class BoomerangProjectile : MonoBehaviour
     {
         //if state is 1, do nothing
         //but if state is 2, lerp back to start position and destroy the gameobject
-        if (state == 1)
-        {
-            Debug.Log(state);
-            yield return null;
-        }
-        else if (state == 2)
-        {
+
             float elapsedTime = 0f;
             Vector3 initialPosition = transform.position;
+            Debug.Log(state);
 
             while (elapsedTime < returnTime)
             {
@@ -101,11 +94,15 @@ public class BoomerangProjectile : MonoBehaviour
                 elapsedTime += Time.deltaTime;
 
             }
-            transform.position = startPosition; //make sure it is exactly at startPos
-            
-            Debug.Log(state);
+
+            if (transform.position == startPosition)
+            {
+                state = 1;
+            }
+
+            yield return null;
             Destroy(gameObject);
-        }
     }
+
 }
 

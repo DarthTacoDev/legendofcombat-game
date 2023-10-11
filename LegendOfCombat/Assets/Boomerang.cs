@@ -23,6 +23,7 @@ public class Boomerang : MonoBehaviour, IWeapon
     public void Attack()
     {
         spriteRenderer.enabled = false;
+
         GameObject boomerang = Instantiate(boomerangProjectile, boomerangSpawnPoint.position, ActiveWeapon.Instance.transform.rotation);
         boomerang.GetComponent<BoomerangProjectile>().UpdateProjectileRange(weaponInfo.weaponRange);
 

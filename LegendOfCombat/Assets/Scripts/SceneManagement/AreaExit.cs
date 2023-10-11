@@ -16,6 +16,7 @@ public class AreaExit : MonoBehaviour
         {
             SceneManagement.Instance.SetTransitionName(sceneTransitionName);
             UIFade.Instance.FadeToBlack();
+            //LevelLoader.Instance.SceneTransition();
             StartCoroutine(LoadSceneRoutine());
         }
     }
@@ -27,7 +28,7 @@ public class AreaExit : MonoBehaviour
             waitToLoadTime -= Time.deltaTime;
             yield return null;
         }
-
+        
         SceneManager.LoadScene(sceneToLoad);
     }
 }

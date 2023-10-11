@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 6013732453020876974}
   - component: {fileID: 4233555298139463447}
   - component: {fileID: 5181569280617705533}
+  - component: {fileID: 848521260502390903}
   m_Layer: 0
   m_Name: Boomerang
   m_TagString: Untagged
@@ -132,3 +133,24 @@ MonoBehaviour:
   weaponInfo: {fileID: 11400000, guid: c495a0471e0631e4bacbf66e42a84036, type: 2}
   boomerangProjectile: {fileID: 141634541086495133, guid: 1f948d008f8dba74db71e54c42993908, type: 3}
   boomerangSpawnPoint: {fileID: 2824267983641596961}
+--- !u!95 &848521260502390903
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8214732148600752125}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4355040dd1070e84e87a329025dccea4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

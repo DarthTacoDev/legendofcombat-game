@@ -22,6 +22,11 @@ public class PlayerController : Singleton<PlayerController>
     private bool facingLeft = false;
     private bool isDashing = false;
 
+    public Vector2 playerX;
+    public Vector2 playerY;
+    public Inventory playerInventory;
+    public SpriteRenderer recievedItemSprite;
+
     private void Start()
     {
         playerControls.Combat.Dash.performed += _ => Dash();
@@ -31,7 +36,7 @@ public class PlayerController : Singleton<PlayerController>
         ActiveInventory.Instance.EquipStartingWeapon();
     }
 
-    protected override  void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
@@ -81,6 +86,9 @@ public class PlayerController : Singleton<PlayerController>
         if (knockback.GettingKnockedBack || PlayerHealth.Instance.IsDead) { return; }
 
         rb.MovePosition(rb.position + movement.normalized * (moveSpeed * Time.fixedDeltaTime));
+
+        playerX = playerControls.Movement.Move.ReadValue<Vector2>();
+        playerY = playerControls.Movement.Move.ReadValue<Vector2>();
     }
 
     private void AdjustPlayerFacingDirection()
@@ -120,5 +128,10 @@ public class PlayerController : Singleton<PlayerController>
         yield return new WaitForSeconds(dashCD);
         isDashing = false;
         trailRenderer.emitting = false;
+    }
+
+    public void RaiseItem()
+    {
+        recievedItemSprite.sprite = playerInventory.currentItem.itemSprite;
     }
 }
