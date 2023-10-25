@@ -78,7 +78,7 @@ public class Sword : MonoBehaviour, IWeapon
 
         if (mousePos.x < playerScreenPoint.x)
         {
-            ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, -180, angle);
+            ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, -180, angle); //360 was -180
             weaponCollider.transform.rotation = Quaternion.Euler(0, -180, 0);
         }
         else

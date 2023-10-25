@@ -15,7 +15,7 @@ public class EnemyAI : MonoBehaviour
     private enum State
     {
         Roaming,
-        Attacking
+        Attacking,
     }
 
     private Vector2 roamPosition;
@@ -23,6 +23,7 @@ public class EnemyAI : MonoBehaviour
     
     private State state;
     private EnemyPathfinding enemyPathFinding;
+
     private void Start()
     {
         roamPosition = GetRoamingPosition();

@@ -11,7 +11,7 @@ public class PlayerHealth : Singleton<PlayerHealth>
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private float knockBackThrustAmount = 10f;
     [SerializeField] private float damageRecoveryTime = 0.4f;
-    [SerializeField] private AudioSource playerHurt;
+    [SerializeField] public AudioSource playerHurt;
     [SerializeField] private AudioSource playerDeath;
 
     private Slider healthSlider;

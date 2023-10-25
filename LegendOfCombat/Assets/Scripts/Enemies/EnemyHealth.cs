@@ -8,6 +8,8 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private GameObject deathVFXPrefab;
     [SerializeField] private float knockBackThrust = 15f;
     [SerializeField] private AudioSource enemyHurt;
+    [SerializeField] private ParticleSystem enemyHitPS;
+    [SerializeField] private GameObject enemyHitObject;
 
     private int currentHealth;
     private Knockback knockback;
@@ -32,6 +34,18 @@ public class EnemyHealth : MonoBehaviour
         ScreenShakeManager.Instance.ShakeScreen();
         
         enemyHurt.Play();
+        
+        if (PlayerController.Instance.FacingLeft == true)
+        {
+            enemyHitObject.transform.rotation = Quaternion.Euler(15, -90, 0);
+            enemyHitPS.Play();
+        }
+        else
+        {
+            enemyHitObject.transform.rotation = Quaternion.Euler(15, 90, 0);
+            enemyHitPS.Play();
+        }
+
         StartCoroutine(flash.FlashRoutine());
         StartCoroutine(CheckDetectDeathRoutine());
     }

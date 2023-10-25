@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+  moveDir: {x: 0, y: 0}
 --- !u!114 &476489973096700492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +204,6 @@ MonoBehaviour:
   deathVFXPrefab: {fileID: 8500176093392251673, guid: 53a6da1c683228a439b810f4662e77d5, type: 3}
   knockBackThrust: 15
   enemyHurt: {fileID: 0}
-  enemyDeath: {fileID: 0}
 --- !u!114 &6620516981769489078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,8 +258,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 9051479242116494888, guid: 9694ddd8299cfc2489025e32477e7cb1, type: 3}
   bulletMoveSpeed: 8
   burstCount: 4
-  projectilesPerBurst: 9
-  angleSpread: 97
+  projectilesPerBurst: 2
+  angleSpread: 62
   startingDistance: 0.3
   timeBetweenBursts: 1
   restTime: 0.5

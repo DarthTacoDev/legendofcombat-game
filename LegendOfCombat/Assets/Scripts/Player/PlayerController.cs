@@ -20,7 +20,7 @@ public class PlayerController : Singleton<PlayerController>
     private float startingMoveSpeed;
 
     private bool facingLeft = false;
-    private bool isDashing = false;
+    public bool isDashing = false;
 
     public Vector2 playerX;
     public Vector2 playerY;

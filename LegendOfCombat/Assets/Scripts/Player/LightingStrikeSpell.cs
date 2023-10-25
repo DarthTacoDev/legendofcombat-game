@@ -8,19 +8,15 @@ public class LightingStrikeSpell : MonoBehaviour
     [SerializeField] private float spellCooldown = 0.5f;
 
     private Vector3 enemyPos;
-    private CircleCollider2D circleCollider;
     private PlayerControls playerControls;
     private bool LightningStrike = false;
     private GameObject instanceLightning;
     private bool ButtonPressed = false;
     private Vector3 offset = new Vector3(0f, .3f, 0f);
-    private EnemyAI enemyAI;
 
     private void Awake()
     {
-        circleCollider = GetComponent<CircleCollider2D>();
         playerControls = new PlayerControls();
-        enemyAI = new EnemyAI();
     }
     
     private void Update()
@@ -53,10 +49,6 @@ public class LightingStrikeSpell : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        playerControls.Enable();
-    }
 
     private void LightningStrikeInstance(Vector3 enemyPosition)
     {
@@ -74,4 +66,10 @@ public class LightingStrikeSpell : MonoBehaviour
         Destroy(instanceLightning);
         Debug.Log("DESTROYED");
     }
+
+    private void OnEnable()
+    {
+        playerControls.Enable();
+    }
+    
 }
